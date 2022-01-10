@@ -6,11 +6,12 @@ function GoodsItem(props) {
         <img src={full_background} alt={image} />
       </div>
       <div className='card-content'>
+        <p className="card-name">{name}</p>
         <p>{description}</p>
       </div>
       <div className='card-action'>
-        <button className='btn'>Купить</button>
-        <span className='right'>{price}</span>
+        <button className='btn  purple darken-4'>Купить</button>
+        <span className='right price'>${price}</span>
       </div>
     </div>
   );

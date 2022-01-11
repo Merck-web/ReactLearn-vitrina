@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { API_KEY, API_URL } from "../../config";
-import { Basket } from "../Basket/Basket";
+import { BasketList } from "../Basket/BasketList";
+import { Basket } from "../Basket/IconBasket";
 import { GoodsList } from "../GoodsList";
 import { Preloader } from "../Preloader/Preloader";
 function Shop() {
   const [goods, setGoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState([]);
+  const [isBasketShow, setBasketShow] = useState(false);
 
   const addToBasket = (item) => {
     const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id);
@@ -24,10 +26,18 @@ function Shop() {
             quantity: orderItem.quantity + 1,
           };
         } else {
-          return item;
+          return orderItem;
         }
       });
       setOrder(newOrder);
+    }
+  };
+  const handleBasketShow = () => {
+    setBasketShow(!isBasketShow);
+    if (!isBasketShow) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "visible";
     }
   };
 
@@ -41,14 +51,16 @@ function Shop() {
         setLoading(false);
       });
   }, []);
-
   return (
     <main className='content container'>
-      <Basket quantity={order.length} />
+      <Basket quantity={order.length} handleBasketShow={handleBasketShow} />
       {loading ? (
         <Preloader />
       ) : (
         <GoodsList goods={goods} addToBasket={addToBasket} />
+      )}
+      {isBasketShow && (
+        <BasketList handleBasketShow={handleBasketShow} order={order} />
       )}
     </main>
   );

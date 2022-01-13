@@ -1,5 +1,5 @@
 import "./index.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 function Alert(props) {
   const { name = "", closeAlert = Function.prototype } = props;
   useEffect(() => {
@@ -7,6 +7,7 @@ function Alert(props) {
     return () => {
       clearTimeout(timerId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
   return (
     <div id='toast-container'>

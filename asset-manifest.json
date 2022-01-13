@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ReactLearn-vitrina/static/css/main.c09d8806.css",
+    "main.js": "/ReactLearn-vitrina/static/js/main.03fc22f6.js",
+    "index.html": "/ReactLearn-vitrina/index.html",
+    "main.c09d8806.css.map": "/ReactLearn-vitrina/static/css/main.c09d8806.css.map",
+    "main.03fc22f6.js.map": "/ReactLearn-vitrina/static/js/main.03fc22f6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c09d8806.css",
+    "static/js/main.03fc22f6.js"
+  ]
+}

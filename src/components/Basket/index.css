@@ -43,10 +43,10 @@ li {
     5px 5px 15px 5px rgba(0, 0, 0, 0);
   border: none;
   z-index: 6;
+  animation: show 1s ease-in-out;
 }
 .icons {
   color: #0277bd !important;
-
 }
 .collection-item {
   display: flex;
@@ -65,7 +65,26 @@ li {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);
+  animation: bg 1s ease-in-out;
 }
-.basket-bg{
+.basket-bg {
   z-index: 6;
+}
+@keyframes show {
+  from {
+    top: 70%;
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    opacity: 1;
+  }
+}
+@keyframes bg {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

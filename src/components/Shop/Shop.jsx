@@ -51,6 +51,10 @@ function Shop() {
         setLoading(false);
       });
   }, []);
+  const removeFromBasket = (itemId) => {
+    const newOrder = order.filter((el) => el.id !== itemId);
+    setOrder(newOrder);
+  };
   return (
     <main className='content container'>
       <Basket quantity={order.length} handleBasketShow={handleBasketShow} />
@@ -60,7 +64,11 @@ function Shop() {
         <GoodsList goods={goods} addToBasket={addToBasket} />
       )}
       {isBasketShow && (
-        <BasketList handleBasketShow={handleBasketShow} order={order} />
+        <BasketList
+          handleBasketShow={handleBasketShow}
+          removeFromBasket={removeFromBasket}
+          order={order}
+        />
       )}
     </main>
   );

@@ -36,6 +36,9 @@ function BasketList(props) {
         )}
         <li className='collection-item active purple darken-3'>
           Общая стоимость: {totalPrice}$
+          <button className='secondaru-content btn purple darken-1'>
+            Оформить
+          </button>
         </li>
       </div>
     </div>

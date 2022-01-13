@@ -6,10 +6,26 @@ function Basketitem(props) {
     price,
     quantity,
     removeFromBasket = Function.prototype,
+    increementQuantity = Function.prototype,
+    dicreementQuantity = Function.prototype,
   } = props;
   return (
     <li className='collection-item'>
-      {name} x {quantity} = {price * quantity}$
+      <div className='left'>
+        {name} x {quantity} = {price * quantity}$
+        <span>
+          <i
+            onClick={() => dicreementQuantity(id)}
+            className='material-icons icons remove'>
+            remove
+          </i>
+          <i
+            onClick={() => increementQuantity(id)}
+            className='material-icons icons add'>
+            add
+          </i>
+        </span>
+      </div>
       <span onClick={() => removeFromBasket(id)} className='secondaru-content'>
         <i className='material-icons icons'>close</i>
       </span>

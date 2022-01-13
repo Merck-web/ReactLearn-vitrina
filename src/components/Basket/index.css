@@ -70,6 +70,22 @@ li {
 .basket-bg {
   z-index: 6;
 }
+.left {
+  display: flex;
+  align-items: center;
+}
+span {
+  height: 24px;
+}
+.icons {
+  color: black !important;
+}
+.remove {
+  color: #d50000 !important;
+}
+.add {
+  color: #1b5e20 !important;
+}
 @keyframes show {
   from {
     top: 70%;

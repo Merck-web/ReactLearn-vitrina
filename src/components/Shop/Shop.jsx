@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
+import { ShopContext } from "../../context";
 import { API_KEY, API_URL } from "../../config";
 import { Alert } from "../Alert/Alert";
 import { BasketList } from "../Basket/BasketList";
@@ -6,107 +7,24 @@ import { Basket } from "../Basket/IconBasket";
 import { GoodsList } from "../GoodsList";
 import { Preloader } from "../Preloader/Preloader";
 function Shop() {
-  const [goods, setGoods] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [order, setOrder] = useState([]);
-  const [isBasketShow, setBasketShow] = useState(false);
-  const [alertName, setAlerName] = useState("");
-
-  const addToBasket = (item) => {
-    const itemIndex = order.findIndex((orderItem) => orderItem.id === item.id);
-    if (itemIndex < 0) {
-      const newItem = {
-        ...item,
-        quantity: 1,
-      };
-      setOrder([...order, newItem]);
-    } else {
-      const newOrder = order.map((orderItem, index) => {
-        if (index === itemIndex) {
-          return {
-            ...orderItem,
-            quantity: orderItem.quantity + 1,
-          };
-        } else {
-          return orderItem;
-        }
-      });
-      setOrder(newOrder);
-    }
-    setAlerName(item.name);
-  };
-  const handleBasketShow = () => {
-    setBasketShow(!isBasketShow);
-    if (!isBasketShow) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "visible";
-    }
-  };
-
+  const { setGoods, loading, order, isBasketShow, alertName } =
+    useContext(ShopContext);
   useEffect(function getGoods() {
     fetch(API_URL, {
       headers: { Authorization: API_KEY },
     })
       .then((response) => response.json())
       .then((data) => {
-        data.featured && setGoods(data.featured);
-        setLoading(false);
+        setGoods(data.featured);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const removeFromBasket = (itemId) => {
-    const newOrder = order.filter((el) => el.id !== itemId);
-    setOrder(newOrder);
-  };
-  const increementQuantity = (itemId) => {
-    const newOrder = order.map((el) => {
-      if (el.id === itemId) {
-        const newQuantity = el.quantity + 1;
-        return {
-          ...el,
-          quantity: newQuantity,
-        };
-      } else {
-        return el;
-      }
-    });
-    setOrder(newOrder);
-  };
-  const dicreementQuantity = (itemId) => {
-    const newOrder = order.map((el) => {
-      if (el.id === itemId) {
-        const newQuantity = el.quantity - 1;
-        return {
-          ...el,
-          quantity: newQuantity >= 0 ? newQuantity : 0,
-        };
-      } else {
-        return el;
-      }
-    });
-    setOrder(newOrder);
-  };
-  const closeAlert = () => {
-    setAlerName("");
-  };
   return (
     <main className='content container'>
-      <Basket quantity={order.length} handleBasketShow={handleBasketShow} />
-      {loading ? (
-        <Preloader />
-      ) : (
-        <GoodsList goods={goods} addToBasket={addToBasket} />
-      )}
-      {isBasketShow && (
-        <BasketList
-          handleBasketShow={handleBasketShow}
-          removeFromBasket={removeFromBasket}
-          increementQuantity={increementQuantity}
-          dicreementQuantity={dicreementQuantity}
-          order={order}
-        />
-      )}
-      {alertName && <Alert name={alertName} closeAlert={closeAlert} />}
+      <Basket quantity={order.length} />
+      {loading ? <Preloader /> : <GoodsList />}
+      {isBasketShow && <BasketList />}
+      {alertName && <Alert />}
     </main>
   );
 }

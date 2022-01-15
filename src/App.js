@@ -12,18 +12,18 @@ import { ContextProvider } from "./context";
 function App() {
   return (
     <React.Fragment>
-      <Header />
-      <ContextProvider>
-          <Router>
-            <Routes>
-              <Route exact path='/' element={<Shop />} />
-              <Route path='/home' element={<Home />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/contact' element={<Contact />} />
-            </Routes>
-          </Router>
-      </ContextProvider>
-      <Footer />
+      <Router>
+        <Header />
+        <ContextProvider>
+          <Routes>
+            <Route exact path='/ReactLearn-vitrina' element={<Shop />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/contact' element={<Contact />} />
+          </Routes>
+        </ContextProvider>
+        <Footer />
+      </Router>
     </React.Fragment>
   );
 }
